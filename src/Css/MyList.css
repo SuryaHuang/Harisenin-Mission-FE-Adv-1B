@@ -1,0 +1,143 @@
+.mylist-title {
+  margin-top: 110px;
+  margin-bottom: 15px;
+  font-size: 37px;
+  font-weight: 700;
+  color: white;
+  line-height: 110%;
+  padding-left: 37.5px;
+}
+
+.mylist-container {
+  padding: 0 55px;
+}
+
+.mylist-wrapper {
+  position: relative;
+  padding: 2vh 15px;
+}
+
+.mylist-content {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  height: 100%;
+  transform: translateX(0);
+  transition: all 0.8s ease-in-out;
+  will-change: transform;
+}
+
+.mylist-content-small {
+  display: none;
+  transition: all 0.8s ease-in-out;
+}
+
+.myListContainer {
+  display: flex;
+  padding: 0 22px 40px 22px;
+  position: relative;
+}
+
+.myListImg {
+  transition: all 0.8s ease-in-out;
+  width: 250px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .mylist-title {
+    margin-top: 100px;
+    margin-bottom: 15px;
+    font-size: 35px;
+    padding-left: 35px;
+  }
+
+  .mylist-content {
+    justify-content: center;
+  }
+
+  .mylist-container {
+    padding: 0 15px;
+  }
+
+  .myListContainer {
+    padding: 0 22.5px 50px 22.5px;
+  }
+
+  .myListContainerSmall {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .myListImg {
+    width: 260px;
+    height: 390px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .mylist-title {
+    margin-top: 70px;
+    margin-bottom: 10px;
+    font-size: 35px;
+    padding-left: 30px;
+  }
+
+  .mylist-content {
+    justify-content: center;
+  }
+
+  .myListContainer {
+    padding: 0 0 3.5vh 0;
+  }
+
+  .myListContainerSmall {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  .myListImg {
+    width: 205px;
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .mylist-title {
+    margin-top: 40px;
+    margin-bottom: -2.5px;
+    font-size: 15px;
+    padding-left: 5px;
+  }
+
+  .mylist-content {
+    display: none;
+  }
+
+  .mylist-content-small {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .myListContainer {
+    padding: 0 0 -1.5vh 0;
+  }
+
+  .myListContainerSmall {
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-bottom: -0.5vh;
+    position: relative;
+  }
+
+  .myListImg {
+    width: 100px;
+    height: 150px;
+    border-radius: 5px;
+  }
+}

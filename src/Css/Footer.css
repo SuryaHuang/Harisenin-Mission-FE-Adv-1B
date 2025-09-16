@@ -1,0 +1,263 @@
+.footer-content {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(231, 227, 252, 0.23);
+  height: 284px;
+}
+
+.logo-footer-container {
+  display: flex;
+}
+
+.logo-footer {
+  padding-left: 80px;
+  width: 210px;
+  height: 40px;
+}
+
+.copyright {
+  padding-top: 26px;
+  padding-left: 80px;
+  user-select: none;
+  color: rgba(193, 194, 196, 1);
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.genre-container-1 {
+  margin-left: 17%;
+}
+
+.genre-1 h4 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: white;
+  padding-bottom: 12px;
+  user-select: none;
+}
+
+.genre-list-1 {
+  list-style: none;
+  display: flexbox;
+  justify-content: space-between;
+}
+
+.genre-list-1 a,
+.genre-list-2 a,
+.genre-list-3 a,
+.genre-list-4 a,
+.bantuan a {
+  text-decoration: none;
+  user-select: none;
+  color: rgba(193, 194, 196, 1);
+}
+
+.genre-list-1 li {
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+}
+
+.genre-container-2 {
+  margin-left: 3%;
+}
+
+.genre-list-2 {
+  list-style: none;
+  display: flexbox;
+  justify-content: space-between;
+  padding-top: 34px;
+}
+
+.genre-list-2 li {
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+}
+
+.genre-container-3 {
+  margin-left: 3%;
+}
+
+.genre-list-3 {
+  list-style: none;
+  display: flexbox;
+  justify-content: space-between;
+  padding-top: 34px;
+}
+
+.genre-list-3 li {
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+}
+
+.genre-container-4 {
+  margin-left: 3%;
+}
+
+.genre-list-4 {
+  list-style: none;
+  display: flexbox;
+  justify-content: space-between;
+  padding-top: 0;
+  margin-bottom: 14px;
+}
+
+.genre-list-4 li {
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+}
+
+.bantuan-container {
+  margin-left: 15%;
+  margin-right: 5%;
+}
+
+.bantuan h4 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+  color: white;
+  padding-bottom: 12px;
+  user-select: none;
+}
+
+.bantuan-list {
+  list-style: none;
+  display: flexbox;
+  justify-content: space-between;
+}
+
+.bantuan-list li {
+  padding-bottom: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.2px;
+}
+
+.footer-container-small {
+  display: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .genre-container-1 {
+    margin-left: 25px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .footer-container {
+    display: none;
+  }
+
+  .footer-container-small {
+    display: block;
+  }
+
+  .logo-footer-small {
+    padding-left: 40px;
+  }
+
+  .copyright-small {
+    padding-left: 40px;
+  }
+
+  .footer-content-small {
+    display: flexbox;
+    border-top: 1px solid rgba(231, 227, 252, 0.23);
+    height: 284px;
+    padding-top: 30px;
+  }
+
+  .footer-small {
+    width: 100%;
+  }
+
+  .genreSmall,
+  .bantuanSmall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .genreSmall {
+    padding-top: 60px;
+  }
+
+  .bantuanSmall {
+    padding-top: 10px;
+  }
+
+  .genreTitleSmall {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 140%;
+    letter-spacing: 0.2px;
+    color: white;
+    padding-left: 40px;
+    user-select: none;
+  }
+
+  .bantuanTitleSmall {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 140%;
+    letter-spacing: 0.2px;
+    color: white;
+    padding-left: 40px;
+    user-select: none;
+  }
+
+  .footerArrow {
+    color: white;
+    font-size: 20px;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .logo-footer {
+    padding-left: 25px;
+    margin-bottom: -10px;
+    width: 100px;
+    height: 23px;
+  }
+
+  .copyright-small {
+    padding-left: 25px;
+    font-size: 0.7em;
+  }
+
+  .footer-small {
+    margin-left: -15px;
+  }
+
+  .genreTitleSmall {
+    font-size: 1.2em;
+  }
+
+  .bantuanTitleSmall {
+    font-size: 1.2em;
+  }
+
+  .footerArrow {
+    font-size: 18px;
+    margin-right: 25px;
+  }
+}
