@@ -6,11 +6,6 @@ import eyeIcon from "../images/Logo/eye.png";
 import googleIcon from "../images/Logo/Gicon.png";
 import { getUsers, tempUsers } from "../services/api/user/useUsers";
 
-// export const userUsername = create((set) => ({
-//   loginUser: null,
-//   setLoginUser: (userAcc) => set({ loginUser: userAcc }),
-// }));
-
 export const userUsername = create(
   persist(
     (set) => ({
@@ -44,15 +39,6 @@ const LoginForm = () => {
     let users = Object.values(usersAccount || {});
     const match = users.find((u) => u.username === user && u.password === pass);
 
-    // let userEntries = Object.entries(usersAccount);
-    // const findUserId = (username, entries) => {
-    //   const find = entries.find(
-    //     ([id, user]) => user.username === username && user.password === password
-    //   );
-    //   return find ? { id: find[0], username: find[1].username } : null;
-    // };
-    // const match = findUserId(user, pass,);
-
     if (!match) {
       alert("Username atau kata sandi salah");
       return;
@@ -61,6 +47,7 @@ const LoginForm = () => {
       const cacheUser = { username: user, password: pass };
       await tempUsers(cacheUser);
       setLoginUser(userAcc);
+      // console.log("ChillLocalStorage :", userAcc);
       // localStorage.setItem("loggedInUser", JSON.stringify(match));
       navigate("/homepage");
     }

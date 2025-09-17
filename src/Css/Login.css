@@ -190,6 +190,25 @@
   }
 }
 
+@keyframes shrinkWrapperMed {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .login-wrapper {
+    animation: shrinkWrapperMed 0.5s ease forwards;
+  }
+
+  .logo {
+    padding: 0 22%;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .login-wrapper {
     animation: shrinkWrapper 0.5s ease forwards;

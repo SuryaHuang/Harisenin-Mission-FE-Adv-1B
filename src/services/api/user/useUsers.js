@@ -1,52 +1,70 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { axiosInstance, axiosApi } from "../../axiosFirebaseConfig";
 
 export const getUsers = () => {
   const [chillUsers, setChillUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsers = setInterval(async () => {
       try {
         const usersResponse = await axiosInstance.get("/chillUsers.json");
         const rawData = usersResponse.data || {};
-        const formatted = Object.entries(rawData).map(([id, user]) => ({
-          id,
-          ...user,
-        }));
-        setChillUsers(formatted);
+        setChillUsers((prevData) => {
+          const isSame = JSON.stringify(prevData) === JSON.stringify(rawData);
+          if (isSame) return prevData;
+          return rawData;
+        });
       } catch (error) {
-        console.log("Error fetching users:", error);
+        console.log("Error fetching temp:", error);
       }
-    };
+    }, 3000);
 
-    fetchUsers();
+    return () => clearInterval(fetchUsers);
   }, []);
 
-  return { data: chillUsers };
+  const formattedUsers = useMemo(() => {
+    const formatted = Object.entries(chillUsers).map(([id, user]) => ({
+      id,
+      ...user,
+    }));
+    console.log("data user dari getUsers (memo):", formatted);
+    return formatted;
+  }, [chillUsers]);
+
+  return { data: formattedUsers };
 };
 
 export const getTemp = () => {
   const [loggedInUsers, setloggedInUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsers = setInterval(async () => {
       try {
         const usersResponse = await axiosInstance.get("/loggedInUsers.json");
         const rawData = usersResponse.data || {};
-        const formatted = Object.entries(rawData).map(([id, user]) => ({
-          id,
-          ...user,
-        }));
-        setloggedInUsers(formatted);
+        setloggedInUsers((prevData) => {
+          const isSame = JSON.stringify(prevData) === JSON.stringify(rawData);
+          if (isSame) return prevData;
+          return rawData;
+        });
       } catch (error) {
         console.log("Error fetching temp:", error);
       }
-    };
+    }, 3000);
 
-    fetchUsers();
+    return () => clearInterval(fetchUsers);
   }, []);
 
-  return { data: loggedInUsers };
+  const formattedUsers = useMemo(() => {
+    const formatted = Object.entries(loggedInUsers).map(([id, user]) => ({
+      id,
+      ...user,
+    }));
+    console.log("data temp dari getTemp (memo):", formatted);
+    return formatted;
+  }, [loggedInUsers]);
+
+  return { data: formattedUsers };
 };
 
 export const postUsers = async (newUser) => {
@@ -88,7 +106,7 @@ export const updateUser = async (userId, newUsername, newPassword) => {
       username: newUsername,
       password: newPassword,
     });
-    console.log("Perubahan Berhasil disimpan");
+    console.log("User Berhasil disimpan");
   } catch (error) {
     console.log("Perubahan Gagal disimpan:", error);
   }

@@ -1,4 +1,4 @@
-import { useRef, useEffect, version } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfilePicture from "../images/Logo/profPic.png";
 import { IoPencilSharp } from "react-icons/io5";
@@ -28,14 +28,49 @@ const UserData = () => {
   const { data: usersTemp } = getTemp();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const idAccount = () => {
+    let findAccount = usersAccount.find((user) => user.id === dataUser?.id);
+    return findAccount
+      ? {
+          id: findAccount.id,
+          username: findAccount.username,
+          password: findAccount.password,
+        }
+      : null;
+  };
+
+  const idTemp = () => {
+    let findTemp = usersTemp.find(
+      (user) => user.username === dataUser.username
+    );
+
+    return findTemp
+      ? {
+          id: findTemp.id,
+          username: findTemp.username,
+          password: findTemp.password,
+        }
+      : null;
+  };
+
+  const useMemoAccount = useMemo(() => {
+    if (!usersAccount || !dataUser) return null;
     const account = idAccount();
+    if (!account) return null;
+    return (
+      usersAccount.find((user) => user.username === account.username) || null
+    );
+  }, [usersAccount]);
+
+  useEffect(() => {
+    if (!dataUser) return;
+    const account = dataUser;
 
     if (account) {
       inputUsernameRef.current.value = account.username;
       inputPasswordRef.current.value = account.password;
     }
-  }, [usersAccount]);
+  }, [dataUser]);
 
   const enableInputUser = () => {
     if (inputUsernameRef.current.disabled) {
@@ -55,122 +90,95 @@ const UserData = () => {
     }
   };
 
-  const idAccount = () => {
-    let findAccount = usersAccount.find((user) => user.id === dataUser?.id);
-    return findAccount
-      ? {
-          id: findAccount.id,
-          username: findAccount.username,
-          password: findAccount.password,
-        }
-      : null;
-  };
-
-  const idTemp = () => {
-    let findTemp = usersTemp.find(
-      (user) => user.username === idAccount()?.username
-    );
-    return findTemp
-      ? {
-          id: findTemp.id,
-          username: findTemp.username,
-          password: findTemp.password,
-        }
-      : null;
-  };
-
   const saveButton = () => {
+    const account = idAccount();
+    const tempAccount = idTemp();
+
     const disableInputs = () => {
       inputUsernameRef.current.disabled = true;
       inputPasswordRef.current.disabled = true;
     };
 
     if (
-      idAccount()?.username === inputUsernameRef.current.value &&
-      idAccount()?.password === inputPasswordRef.current.value
+      account.username === inputUsernameRef.current.value.trim() &&
+      account.password === inputPasswordRef.current.value.trim()
     ) {
       alert("Tidak ada perubahan");
       disableInputs();
       return;
-    }
-
-    if (
-      inputUsernameRef.current.value === "" ||
-      inputPasswordRef.current.value === ""
+    } else if (
+      inputUsernameRef.current.value.trim() === "" ||
+      inputPasswordRef.current.value.trim() === ""
     ) {
-      inputUsernameRef.current.value = `${idAccount()?.username}`;
-      inputPasswordRef.current.value = `${idAccount()?.password}`;
+      disableInputs();
+      inputUsernameRef.current.value = `${account.username}`;
+      inputPasswordRef.current.value = `${account.password}`;
       alert("Data tidak boleh kosong");
-      disableInputs();
-      return;
-    }
-
-    if (
-      idAccount()?.username === inputUsernameRef.current.value &&
-      idAccount()?.password !== inputPasswordRef.current.value
-    ) {
-      updateUser(
-        idAccount()?.id,
-        idAccount()?.username,
-        inputPasswordRef.current.value
-      );
-      updateTemp(
-        idTemp()?.id,
-        idTemp()?.username,
-        inputPasswordRef.current.value
-      );
-      updateDataUser({
-        username: idAccount()?.username,
-        password: inputPasswordRef.current.value,
-        id: idAccount()?.id,
-      });
-      alert("Password berhasil diubah");
-      disableInputs();
       return;
     }
 
     const matchUsername = usersAccount.some(
-      (user) =>
-        user.username === inputUsernameRef.current.value &&
-        user.id !== idAccount()?.id
+      (user) => user.username === inputUsernameRef.current.value.trim()
     );
-    if (matchUsername) {
-      alert("Username sudah digunakan");
-      inputUsernameRef.current.value = `${idAccount()?.username}`;
-      inputPasswordRef.current.value = `${idAccount()?.password}`;
+
+    if (
+      account.username === inputUsernameRef.current.value.trim() &&
+      account.password !== inputPasswordRef.current.value.trim()
+    ) {
+      updateUser(
+        account.id,
+        account.username,
+        inputPasswordRef.current.value.trim()
+      );
+      updateTemp(
+        tempAccount.id,
+        tempAccount.username,
+        inputPasswordRef.current.value.trim()
+      );
       updateDataUser({
-        username: idAccount()?.username,
-        password: idAccount()?.password,
-        id: idAccount()?.id,
+        username: account.username,
+        password: inputPasswordRef.current.value.trim(),
+        id: account.id,
+      });
+      alert("Password berhasil diubah");
+      disableInputs();
+      return;
+    } else if (matchUsername) {
+      alert("Username sudah digunakan");
+      inputUsernameRef.current.value = `${account.username}`;
+      inputPasswordRef.current.value = `${account.password}`;
+      updateDataUser({
+        username: account.username,
+        password: account.password,
+        id: account.id,
       });
       disableInputs();
       return;
     }
 
     if (
-      idAccount()?.username !== inputUsernameRef.current.value ||
-      idAccount()?.password !== inputPasswordRef.current.value
+      account.username !== inputUsernameRef.current.value.trim() ||
+      account.password !== inputPasswordRef.current.value.trim()
     ) {
       updateUser(
-        idAccount()?.id,
-        inputUsernameRef.current.value,
-        inputPasswordRef.current.value
+        account.id,
+        inputUsernameRef.current.value.trim(),
+        inputPasswordRef.current.value.trim()
       );
       updateTemp(
-        idTemp()?.id,
-        inputUsernameRef.current.value,
-        inputPasswordRef.current.value
+        tempAccount.id,
+        inputUsernameRef.current.value.trim(),
+        inputPasswordRef.current.value.trim()
       );
       updateDataUser({
-        username: inputUsernameRef.current.value,
-        password: inputPasswordRef.current.value,
-        id: idAccount()?.id,
+        username: inputUsernameRef.current.value.trim(),
+        password: inputPasswordRef.current.value.trim(),
+        id: account.id,
       });
       // localStorage.setItem("chillUsers", JSON.stringify(account));
       // localStorage.setItem("loggedInUser", JSON.stringify(user));
       alert("Username/Password berhasil diubah");
       disableInputs();
-      return;
     }
   };
 
